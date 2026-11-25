@@ -1,0 +1,31 @@
+# GROTAXE SMART MOUNT
+# Example only. Replace all placeholder values.
+
+schema_version = 1
+
+[runtime]
+interval_seconds = 30
+recovery_confirmations = 2
+
+[[volumes]]
+name = "primary"
+target = "/mnt/example-storage"
+uuid = "11111111-2222-3333-4444-555555555555"
+fstype = "ext4"
+fsroot = "/"
+mode = "rw"
+required_dirs = ["data"]
+
+[[groups]]
+name = "application"
+volumes = ["primary"]
+units = ["example-api.service", "example-worker.service"]
+auto_recovery = false
+
+[[groups.binds]]
+volume = "primary"
+source = "/mnt/example-storage/data"
+destination = "/srv/example-app/data"
+source_mode = "ro"
+destination_mode = "rw"
+marker = ".storage-owner"

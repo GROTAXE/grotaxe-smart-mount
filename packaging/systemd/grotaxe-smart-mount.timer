@@ -1,0 +1,11 @@
+[Unit]
+Description=GROTAXE SMART MOUNT Protection Timer
+
+[Timer]
+OnBootSec=30s
+OnUnitInactiveSec=30s
+AccuracySec=1s
+Unit=grotaxe-smart-mount.service
+
+[Install]
+WantedBy=timers.target

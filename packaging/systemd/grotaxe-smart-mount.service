@@ -1,0 +1,19 @@
+[Unit]
+Description=GROTAXE SMART MOUNT Storage Protection
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+UMask=0077
+RuntimeDirectory=grotaxe-smart-mount
+RuntimeDirectoryMode=0700
+RuntimeDirectoryPreserve=yes
+WorkingDirectory=/
+NoNewPrivileges=yes
+TimeoutStartSec=600
+ExecStart=/usr/bin/python3 -I -B -c "import sys; sys.path.insert(0, '/opt/grotaxe-smart-mount'); from smart_mount.runtime_entry import main; raise SystemExit(main(['--apply-protection']))"
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=grotaxe-smart-mount
